@@ -1,0 +1,26 @@
+{
+  "name": "money-bankjs",
+  "version": "1.0.0",
+    "type": "module",
+  "description": "- a ideia do projeto é criar uma forma de estudar js e poder melhorar a minha forma de codar tentando trazer além de ferramentas que nunca utilizei padrões utilizados",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuiNegr/jsStudys.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuiNegr/jsStudys/issues"
+  },
+  "homepage": "https://github.com/GuiNegr/jsStudys#readme",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mysql2": "^3.15.0"
+  }
+}
