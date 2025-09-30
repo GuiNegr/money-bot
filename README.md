@@ -1,9 +1,15 @@
-# MONEY BANK
+# MONEY HELPER
 
-- a ideia do projeto é criar uma forma de estudar js e poder melhorar a minha forma de codar
-tentando trazer além de ferramentas que nunca utilizei padrões utilizados
+A ideia do projeto é aprimorar meus conhecimentos como progamadador e me desafiar a utilizar uma linguagem que não tenho contato para isso.
 
-como utilizar o git corretamente
-nomeclatura e identificação de metodos e variaveis
-separação de projeto e entre outros
 
+MVP
+- Fazer request a uma api financeira
+- salvar essa info em uma variavel 
+- printar na tela
+
+
+Escopos para o MVP
+- Classe Financial (MODEL)
+- Classe de service
+- classe de controller
