@@ -10,6 +10,7 @@ export class FinancialAsset{
 
         this.value = value;
         this.name = name;
+        this.type = type
     }
 
     getValue(){
