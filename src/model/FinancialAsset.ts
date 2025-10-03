@@ -1,32 +1,19 @@
-import { FinancialType } from "../enums/FinancialType";
+import { FinancialType } from "./enums/FinancialType";
+ export class FinancialAsset{
+        ticker:string
+         amount:number;
+         type:FinancialType;
+         name:string;
+         quanity:number;
 
-export class FinancialAsset{
-        private amount:Number;
-        private type:FinancialType;
-        private name:String;
-        private quanity:Number;
 
-
-    constructor(amount:Number,type:FinancialType,name:String,quantity:Number){
+    constructor(amount:number,type:FinancialType,name:string,quantity:number,ticker:string){
             this.amount = amount;
             this.type = type;
             this.name = name;
             this.quanity = quantity;
+            this.ticker = ticker;
     }
 
-     getAmount() {
-        return this.amount;  
-    }
-
-    getType(){
-        return this.type;
-    }
-
-    getName(){
-        return this.name;
-    }
-
-    getQuantity(){
-        return this.quanity;
-    }
+    
 }
