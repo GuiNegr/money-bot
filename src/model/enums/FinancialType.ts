@@ -3,6 +3,7 @@
     STOCK, 
     BDRM,
     ETF,
-    CRYPTO
+    CRYPTO,
+    NASDAQ
 }
 

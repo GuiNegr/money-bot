@@ -15,12 +15,9 @@ export class FinancialService {
     async getStockValue(stockName: string): Promise<any> {
         try {
             const stockData = await this.brapiApi.getStockInformation(stockName);
-            if (!stockData) {
-                throw new FinancialServiceException(`Não foi possível obter dados para a ação ${stockName}`);
-            }
             return stockData;
         } catch (error: any) {
-            throw new FinancialServiceException(String(error) + "This error has ocurred in getStockValue function")
+            throw new FinancialServiceException(String(error) )
         }
     }
 
@@ -33,7 +30,7 @@ export class FinancialService {
     await this.financialRepository.save(financialAsset)
     return true
         }catch(err){
-            throw new FinancialServiceException(String(err) + "This error has ocurred in save function")
+            throw new FinancialServiceException("A error has ocurred in save function service"+String(err))
         }
         
     }

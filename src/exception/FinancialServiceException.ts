@@ -1,6 +1,8 @@
 export class FinancialServiceException extends Error{
     constructor(message:string){
-        super("You have a probleam with your FinancialAsset Service! "+message)
+        super(message)
         this.name = "FinancialServiceException";
+        Object.setPrototypeOf(this, FinancialServiceException.prototype)
+
     }
 }

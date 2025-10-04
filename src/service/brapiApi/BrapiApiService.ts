@@ -1,32 +1,35 @@
 import dotenv from "dotenv";
+import { BrapiApiException } from "../../exception/BrapiApiException";
 dotenv.config();
 
 export class BrapiApi {
-    static apiKey: string | undefined = process.env.BRAPIAPIKEY;
-    static url: string = "https://brapi.dev/api/";
+    private apiKey: string;
+    private url: string;
+
+    constructor(){
+        this.apiKey= process.env.BRAPIAPIKEY || "empty";
+        this.url=  "https://brapi.dev/api/";
+
+    }
 
    
     async getStockInformation(stockName: string): Promise<any | undefined> {
         try {
-            if (!BrapiApi.apiKey) {
-                throw new Error("API key not set in environment variables");
-            }
-
-            const response = await fetch(`${BrapiApi.url}quote/${stockName}`, {
+            const response = await fetch(`${this.url}quote/${stockName}`, {
                 method: "GET",
                 headers: {
-                    "Authorization": `Bearer ${BrapiApi.apiKey}`,
+                    "Authorization": `Bearer ${this.apiKey}`,
                 },
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP Error: ${response.status}`);
+            if (response.statusText === "Not Found") {
+                throw new BrapiApiException(stockName+ " Ticker Not found")
             }
-
             const data = await response.json();
             return data;
         } catch (e: any) {
-            console.error("Error fetching stock info:", e.message);
-        }
+             throw new BrapiApiException(String(e))
+
+            }
     }
 }
