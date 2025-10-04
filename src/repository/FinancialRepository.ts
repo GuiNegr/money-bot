@@ -1,6 +1,7 @@
 import mysql, { Connection,RowDataPacket } from "mysql2/promise";
 import { FinancialAsset } from "../model/FinancialAsset";
 import dotenv from "dotenv";
+import { FinancialRepositoryException } from "../exception/FinancialRepositoryException";
 dotenv.config();
 
 
@@ -37,8 +38,7 @@ export class FinancialRepository {
             const values = [financialAsset.type, financialAsset.name, financialAsset.amount,financialAsset.quanity,financialAsset.ticker];
             await con.execute(sql, values); 
         } catch (err) {
-            console.error("Erro ao inserir registro:", err);
-            throw err;
+            throw new FinancialRepositoryException(String(err + " the error has ocurred in save function "))
         } finally {
             await con.end();
         }
@@ -53,8 +53,25 @@ export class FinancialRepository {
                 name: row.name,
                 value: row.amount, 
             }));
+        }catch (err) {
+            throw new FinancialRepositoryException(String(err + " the error has ocurred in getAllData function "))
         } finally {
             await con.end();
         }
+    }
+
+     async getFinancialAssetByTicker(ticker:String): Promise<number>{
+            const connection = await this.connectWithDatabase();
+
+            try{
+                const SQL = "SELECT * FROM financial_asset where ticker = ?"
+                const [rows] = await connection.execute<RowDataPacket[]>(SQL, [ticker]);                
+                const id = Number(rows[0]?.id) || 0;            
+                return id
+            }catch(err){
+                throw new FinancialRepositoryException(String(err + " the error has ocurred in getFinancialAssetByTicker function "))
+            }finally{
+                await connection.end();
+            } 
     }
 }
