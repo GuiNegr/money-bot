@@ -1,19 +1,12 @@
-import { FinancialController } from '/home/chickenlinuxuser/Documentos/Estudos/money-bankJS/src/controller/FinancialController';
-import { FinancialType } from '/home/chickenlinuxuser/Documentos/Estudos/money-bankJS/src/model/enums/FinancialType';
-import { FinancialAsset } from '/home/chickenlinuxuser/Documentos/Estudos/money-bankJS/src/model/FinancialAsset';
-import { FinancialRepository } from '/home/chickenlinuxuser/Documentos/Estudos/money-bankJS/src/repository/FinancialRepository';
-import { PolygonApiService } from './service/polygonApi/PolygonApiService';
-import { CoinMarketCapService } from './service/coinMarketCapService/CoinMarketCapService';
-
+import { FinancialType } from "./model/enums/FinancialType";
+import { FinancialService } from "./service/financialService/FinancialService"
 
 async function main() {
     
+const financialSerivce = new FinancialService();
 
 
-    const gekko:CoinMarketCapService = new CoinMarketCapService()
-
-    gekko.getCryptoInformation("BTC")
-  
+financialSerivce.createFinancialAsset(FinancialType.CRYPTO,"BTC",3,"BTC")
 }
 
  main()

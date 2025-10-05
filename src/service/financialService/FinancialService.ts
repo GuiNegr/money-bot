@@ -46,24 +46,28 @@ export class FinancialService {
     }
 
 
-    async createFinancialAsset(type:FinancialType,name:string,quantity:number,ticker:string){
+    async createFinancialAsset(type:FinancialType,name:string,quantity:number,ticker:string):Promise<boolean>{
         let amout =  null;
         let  objectFinancial = null;
         
         switch(type){
-
             case FinancialType.STOCK:
             objectFinancial = await this.brapiApi.getStockInformation(ticker)
-            amout = objectFinancial.results[0].regularMarketPrice
+            amout = objectFinancial.results[0]?.regularMarketPrice || 0
             break;
             
             case FinancialType.CRYPTO:
             objectFinancial = await this.coinMarketCap.getCryptoInformation(ticker)
-            amout = objectFinancial.USD.price
+            amout = objectFinancial?.[0]?.quote?.USD?.price || 0
             break;
-
         }
 
+        if(amout === 0) return false
+
+        const financialAsset:FinancialAsset =  new FinancialAsset(amout,type,name,quantity,ticker)
+        this.save(financialAsset)
+        
+        return true
 
     }
 
