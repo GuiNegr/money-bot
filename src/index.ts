@@ -3,14 +3,16 @@ import { FinancialType } from '/home/chickenlinuxuser/Documentos/Estudos/money-b
 import { FinancialAsset } from '/home/chickenlinuxuser/Documentos/Estudos/money-bankJS/src/model/FinancialAsset';
 import { FinancialRepository } from '/home/chickenlinuxuser/Documentos/Estudos/money-bankJS/src/repository/FinancialRepository';
 import { PolygonApiService } from './service/polygonApi/PolygonApiService';
+import { CoinMarketCapService } from './service/coinMarketCapService/CoinMarketCapService';
 
 
 async function main() {
-
     
 
-    const polygon = new PolygonApiService();
-    polygon.getStockInformation("AAPL")
+
+    const gekko:CoinMarketCapService = new CoinMarketCapService()
+
+    gekko.getCryptoInformation("BTC")
   
 }
 

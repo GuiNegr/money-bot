@@ -22,10 +22,8 @@ export class BrapiApi {
                 },
             });
 
-            if (response.statusText === "Not Found") {
-                throw new BrapiApiException(stockName+ " Ticker Not found")
-            }
             const data = await response.json();
+            console.log(data)
             return data;
         } catch (e: any) {
              throw new BrapiApiException(String(e))

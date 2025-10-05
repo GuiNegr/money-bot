@@ -2,21 +2,31 @@ import { BrapiApi } from "/home/chickenlinuxuser/Documentos/Estudos/money-bankJS
 import { FinancialAsset } from "../../model/FinancialAsset";
 import { FinancialRepository } from "../../repository/FinancialRepository";
 import { FinancialServiceException } from "../../exception/FinancialServiceException";
+import { FinancialType } from "../../model/enums/FinancialType";
+import { CoinMarketCapService } from "../coinMarketCapService/CoinMarketCapService";
 
 export class FinancialService {
     private brapiApi: BrapiApi;
+    private coinMarketCap: CoinMarketCapService
     private financialRepository:FinancialRepository;
 
     constructor(){
         this.brapiApi = new BrapiApi();
         this.financialRepository =  new FinancialRepository();
+        this.coinMarketCap = new CoinMarketCapService();
     }
 
     async getStockValue(stockName: string): Promise<any> {
         try {
             const stockData = await this.brapiApi.getStockInformation(stockName);
+
+            if(stockData.error){
+                console.log(stockData.message)
+                return null
+            }
+
             return stockData;
-        } catch (error: any) {
+        } catch (error) {
             throw new FinancialServiceException(String(error) )
         }
     }
@@ -35,7 +45,29 @@ export class FinancialService {
         
     }
 
-    //não sei se irei utilizar apenas um metodo para salver e dar update
+
+    async createFinancialAsset(type:FinancialType,name:string,quantity:number,ticker:string){
+        let amout =  null;
+        let  objectFinancial = null;
+        
+        switch(type){
+
+            case FinancialType.STOCK:
+            objectFinancial = await this.brapiApi.getStockInformation(ticker)
+            amout = objectFinancial.results[0].regularMarketPrice
+            break;
+            
+            case FinancialType.CRYPTO:
+            objectFinancial = await this.coinMarketCap.getCryptoInformation(ticker)
+            amout = objectFinancial.USD.price
+            break;
+
+        }
+
+
+    }
+
+
     async update(financialAsset: FinancialAsset){
 
     }

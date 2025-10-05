@@ -13,7 +13,6 @@ export class PolygonApiService{
 
 
     async getStockInformation(ticker:string){
-        console.log(this.apikey)
         try{
             const response = await fetch(`${this.url}/reference/tickers/${ticker}?apiKey=${this.apikey}`,{
                 method:"GET"
