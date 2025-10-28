@@ -3,6 +3,7 @@
     BDRM,
     ETF,
     CRYPTO,
-    NASDAQ
+    NASDAQ,
+    DEFAULT
 }
 

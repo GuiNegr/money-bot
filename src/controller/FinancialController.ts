@@ -1,6 +1,9 @@
 import { FinancialAsset } from "../model/FinancialAsset";
 import { FinancialService } from "/home/chickenlinuxuser/Documentos/Estudos/money-bankJS/src/service/financialService/FinancialService";
+import { FinancialType } from "../model/enums/FinancialType";
 
+
+// deixar a controller para a ultima modificação já que vai ser ela que vai trabalhar para minha api
 export class FinancialController {
     private financialService: FinancialService;
 
@@ -19,8 +22,16 @@ export class FinancialController {
         }
     }
 
-    async save(finacialAsset: FinancialAsset){
-        if(await this.financialService.save(finacialAsset)) console.log(finacialAsset.ticker + "Salvo com sucesso!")
-        else console.log(finacialAsset.ticker + " donst not save the register already exist in bd")
+
+
+
+    //trocar aqui para fazer ser consumido o metodo que irá construir primeiro o objeto!
+    async save(type:string,name:string,quantity:number,ticker:string){
+        this.financialService.createFinancialAsset(type,name,quantity,ticker)
+    }
+
+    async getTickerInformation(ticker:string): Promise<any>{
+        const informartion = this.financialService.getInfoAboutTikcer(ticker)
+       return informartion;
     }
 }

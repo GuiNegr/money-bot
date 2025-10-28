@@ -4,7 +4,7 @@
   "description": "estou cansado de utilizar plataformas pagas para gerir meus investimentos... além de oferecem coisas de mais para mim (sou apenas um investimento) acabam se tornando um peso a mais para mim ao gerenciar minha finanças, são coisas extremamente complicadas que poderiam ser simplificadas.",
   "main": "index.js",
   "scripts": {
-    "dev": "npx ts-node src/index.ts",
+    "dev": "npx ts-node src/route/app.ts",
     "build": "tsc"
   },
   "repository": {
@@ -19,11 +19,14 @@
   },
   "homepage": "https://github.com/GuiNegr/jsStudys#readme",
   "devDependencies": {
+    "@types/express": "^5.0.5",
     "@types/node": "^24.6.2",
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "body-parser": "^2.2.0",
     "dotenv": "^17.2.3",
+    "express": "^5.1.0",
     "mysql2": "^3.15.1"
   }
 }

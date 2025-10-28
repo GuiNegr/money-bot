@@ -74,4 +74,20 @@ export class FinancialRepository {
                 await connection.end();
             } 
     }
+
+    
+       async getTickerInBdAndReturn(ticker:String): Promise<any>{
+            const connection = await this.connectWithDatabase();
+
+            try{
+                const SQL = "SELECT * FROM financial_asset where ticker = ?"
+                const [rows] = await connection.execute<RowDataPacket[]>(SQL, [ticker]);                
+                const information = rows[0] || 0;
+                return information;            
+            }catch(err){
+                throw new FinancialRepositoryException(String(err + " the error has ocurred in getFinancialAssetByTicker function "))
+            }finally{
+                await connection.end();
+            } 
+    }
 }
