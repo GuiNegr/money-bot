@@ -16,6 +16,7 @@ export class FinancialService {
         this.coinMarketCap = new CoinMarketCapService();
     }
 
+    /// esse precisa verificar se é cripto ou não?
     async getStockValue(stockName: string): Promise<any> {
         try {
             const stockData = await this.brapiApi.getStockInformation(stockName);
@@ -84,17 +85,36 @@ export class FinancialService {
 
 
 
-    async getInfoAboutTikcer(ticker:String) : Promise<any>{
-        let informartion = null;
+    //tem que checar os valores caso seja diferente atualiza oque está no bd  e depois faz um novo get
+    async getInfoAboutTikcer(ticker:string) : Promise<any>{
+        let tickerInBd = null;
         const isNotFoundAnyValue = 0;
+        let valueStockInMarket = 0;
+        let valueTickerInBd = 0;
+        let stockInMarket = null;
+
         try{
-             informartion = await this.financialRepository.getTickerInBdAndReturn(ticker)
+        tickerInBd = await this.financialRepository.getTickerInBdAndReturn(ticker)
+        valueTickerInBd = tickerInBd.amount;
+       
+        stockInMarket = await this.getStockValue(ticker)
+        valueStockInMarket = stockInMarket.results[0].regularMarketPrice
+        console.log(stockInMarket)
+
+        if(valueStockInMarket != valueTickerInBd){
+            this.financialRepository.updateTickerValue(ticker,valueStockInMarket)
+        }
+
+       
+        tickerInBd = await this.financialRepository.getTickerInBdAndReturn(ticker)
+
         }catch(error){
             console.log(String(error))
         }
-
-        if(informartion != isNotFoundAnyValue ){
-            return informartion
+        tickerInBd.amout = tickerInBd.amout * tickerInBd.quantity
+        
+        if(tickerInBd != isNotFoundAnyValue ){
+            return tickerInBd
         }
         return "Não Foi localizado nenhum ticker com esse nome em suas ações"
     }

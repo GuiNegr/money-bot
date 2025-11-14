@@ -14,6 +14,8 @@ export class FinancialRepository {
     const password = process.env.PASSWORDBD;
     const database = process.env.DB;
 
+
+
     if (!host || !user || !password || !database) {
         throw new Error("Alguma variável de ambiente do banco não está definida!");
     }
@@ -43,6 +45,21 @@ export class FinancialRepository {
             await con.end();
         }
     }
+
+        async updateTickerValue(tickerName: string,newValue : number): Promise<void> {
+        const con = await this.connectWithDatabase();
+
+        try {
+            const sql = "UPDATE financial_asset SET amount = ?  WHERE TICKER = ?";
+            const values = [newValue,tickerName];
+            await con.execute(sql, values); 
+        } catch (err) {
+            throw new FinancialRepositoryException(String(err + " the error has ocurred in updateTickerValue function "))
+        } finally {
+            await con.end();
+        }
+    }
+
 
      async getAllData(): Promise<any> {
         const con = await this.connectWithDatabase();
@@ -76,7 +93,7 @@ export class FinancialRepository {
     }
 
     
-       async getTickerInBdAndReturn(ticker:String): Promise<any>{
+       async getTickerInBdAndReturn(ticker:string): Promise<any>{
             const connection = await this.connectWithDatabase();
 
             try{

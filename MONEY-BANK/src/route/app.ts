@@ -9,8 +9,6 @@ const port = 3000
 const financialController = new FinancialController()
 
 
-
-
  app.get('/getStockValue/:stock', async (req, res) =>  {
     let valueStock = null
     try{
@@ -30,7 +28,7 @@ app.post('/create', jsonParser, function (req, res) {
 })
 
 
- app.get('/getTickerInformation/:ticker', async (req, res) =>  {
+ app.get('/getYoutWalletTicker/:ticker', async (req, res) =>  {
     let valueStock = null
     try{
         valueStock = await financialController.getTickerInformation(req.params.ticker)

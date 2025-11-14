@@ -1,5 +1,5 @@
 import { FinancialAsset } from "../model/FinancialAsset";
-import { FinancialService } from "/home/chickenlinuxuser/Documentos/Estudos/money-bankJS/src/service/financialService/FinancialService";
+import { FinancialService } from "../service/financialService/FinancialService";
 import { FinancialType } from "../model/enums/FinancialType";
 
 
