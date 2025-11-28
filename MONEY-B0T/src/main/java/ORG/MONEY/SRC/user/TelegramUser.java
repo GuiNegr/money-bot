@@ -4,8 +4,10 @@ package ORG.MONEY.SRC.user;
 import java.util.Objects;
 
 public class TelegramUser {
+    
     private Long chatId;
     private String lastMessage;
+    private int stepInto;
 
     public TelegramUser(String lastMessage, Long chatId) {
         this.lastMessage = lastMessage;
@@ -19,6 +21,14 @@ public class TelegramUser {
     public String getLastMessage() {
         return lastMessage;
     }
+
+    public int getStepInto(){
+        return this.stepInto;
+    }
+
+    public void setStepInto(int newStep){this.stepInto = newStep;}
+
+    public void setLastMessage(String newMessage){this.lastMessage = newMessage;}
 
     @Override
     public boolean equals(Object o) {

@@ -2,7 +2,8 @@ package ORG.MONEY.SRC.bot;
 
 
 import ORG.MONEY.SRC.user.TelegramUser;
-import ORG.MONEY.SRC.utils.TokenProvider;
+import ORG.MONEY.SRC.utils.impl.TokenProvider;
+import ORG.MONEY.SRC.view.impl.ViewMaster;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -13,7 +14,8 @@ import java.util.List;
 
 public class Bot extends TelegramLongPollingBot {
 
-    List<TelegramUser> usersList = new ArrayList<>();
+    
+    public static List<TelegramUser> usersList = new ArrayList<>();
 
     @Override
     public String getBotUsername() {
@@ -41,13 +43,18 @@ public class Bot extends TelegramLongPollingBot {
 
         TelegramUser tempUser = new TelegramUser(updates.get(0).getMessage().getText(), updates.get(0).getMessage().getChatId());
 
-        if(!this.usersList.isEmpty() && this.usersList.contains(tempUser)){
-            sendMessage(updates.get(0).getMessage().getChatId(),"VOCE JÁ ESTÁ AQUI");
-        }else{
+        if(!this.usersList.contains(tempUser)) {
             usersList.add(tempUser);
-            sendMessage(updates.get(0).getMessage().getChatId(),"eu tenho escoliose");
         }
+
+        tempUser.setStepInto(Bot.usersList.get(Bot.usersList.indexOf(tempUser)).getStepInto());
+
+
+        sendMessage(tempUser.getChatId(), ViewMaster.orquestrator(tempUser));
+
+
     }
+
 
     public void sendMessage(Long who, String what){
         SendMessage sm = SendMessage.builder()
