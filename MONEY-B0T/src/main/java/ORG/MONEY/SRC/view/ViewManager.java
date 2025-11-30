@@ -1,6 +1,6 @@
 package ORG.MONEY.SRC.view;
 
-import ORG.MONEY.SRC.user.TelegramUser;
+import ORG.MONEY.SRC.models.TelegramUser;
 
 public interface ViewManager {
     

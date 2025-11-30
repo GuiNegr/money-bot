@@ -1,7 +1,7 @@
 package ORG.MONEY.SRC.bot;
 
 
-import ORG.MONEY.SRC.user.TelegramUser;
+import ORG.MONEY.SRC.models.TelegramUser;
 import ORG.MONEY.SRC.utils.impl.TokenProvider;
 import ORG.MONEY.SRC.view.impl.ViewMaster;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;

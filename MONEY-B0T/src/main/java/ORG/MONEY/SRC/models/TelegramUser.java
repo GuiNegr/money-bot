@@ -1,4 +1,5 @@
-package ORG.MONEY.SRC.user;
+package ORG.MONEY.SRC.models;
+
 
 
 import java.util.Objects;
@@ -29,6 +30,11 @@ public class TelegramUser {
     public void setStepInto(int newStep){this.stepInto = newStep;}
 
     public void setLastMessage(String newMessage){this.lastMessage = newMessage;}
+
+    public void setChatId(Long chatId) {
+        this.chatId = chatId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
