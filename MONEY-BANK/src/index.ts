@@ -6,4 +6,4 @@ async function main() {
 const financialSerivce = new FinancialService();
 
 }
- main()
+main()
