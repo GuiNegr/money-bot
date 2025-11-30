@@ -22,10 +22,6 @@ const financialController = new FinancialController()
     
 })
 
-app.post('/create', jsonParser, function (req, res) {
-   financialController.save(req.body.type,req.body.name,req.body.quantity,req.body.ticker)
-   res.send("Arigato")
-})
 
 
  app.get('/getYoutWalletTicker/:ticker', async (req, res) =>  {

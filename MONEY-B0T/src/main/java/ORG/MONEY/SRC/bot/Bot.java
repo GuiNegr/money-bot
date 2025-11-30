@@ -43,12 +43,11 @@ public class Bot extends TelegramLongPollingBot {
 
         TelegramUser tempUser = new TelegramUser(updates.get(0).getMessage().getText(), updates.get(0).getMessage().getChatId());
 
-        if(!this.usersList.contains(tempUser)) {
+        if(!usersList.contains(tempUser)) {
             usersList.add(tempUser);
         }
 
         tempUser.setStepInto(Bot.usersList.get(Bot.usersList.indexOf(tempUser)).getStepInto());
-
 
         sendMessage(tempUser.getChatId(), ViewMaster.orquestrator(tempUser));
 

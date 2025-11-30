@@ -2,6 +2,7 @@ package ORG.MONEY.SRC.view.impl;
 
 
 import ORG.MONEY.SRC.bot.Bot;
+import ORG.MONEY.SRC.service.impl.UtilzeMoneyBankImpl;
 import ORG.MONEY.SRC.user.TelegramUser;
 import ORG.MONEY.SRC.utils.ApiCaller;
 import ORG.MONEY.SRC.utils.impl.ApiCallerImpl;
@@ -20,7 +21,7 @@ public class ViewMaster implements ViewManager {
             case 0 -> welcomeMessage(telegramUser);
             case 1 -> understadingMessage(telegramUser);
             default -> "Não entendi a memsagem! poderia repetir?";
-        };
+            };
 
 
     }
@@ -28,12 +29,12 @@ public class ViewMaster implements ViewManager {
 
     private static  String welcomeMessage(TelegramUser telegramUser){
         Bot.usersList.get(Bot.usersList.indexOf(telegramUser)).setStepInto(1);
-        ApiCallerImpl.getAllTokens();
         return "Hello! vocês está utilizando o MoneyBot! seja bem vindo! em que podemos ajudar você hoje? \n 1 -> QUERO VER MINHAS AÇÕES \n 2 -> QUERO VER UMA AÇÃO ESPECIFICA \n 3 -> QUERO SALVAR UM NOVO INVESTIMENTO";
     }
 
     private static String understadingMessage(TelegramUser telegramUser){
         Bot.usersList.get(Bot.usersList.indexOf(telegramUser)).setStepInto(2);
-        return "Entendo! irei já enviar oque temos disp";
+        return UtilzeMoneyBankImpl.processStringArrayResponse(ApiCallerImpl.getAllTokens(telegramUser.getLastMessage()));
     }
+
 }
