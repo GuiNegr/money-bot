@@ -1,6 +1,7 @@
 package ORG.MONEY.SRC.bot;
 
 
+import ORG.MONEY.SRC.models.Stock;
 import ORG.MONEY.SRC.models.TelegramUser;
 import ORG.MONEY.SRC.utils.impl.TokenProvider;
 import ORG.MONEY.SRC.view.impl.ViewMaster;
@@ -16,6 +17,7 @@ public class Bot extends TelegramLongPollingBot {
 
     
     public static List<TelegramUser> usersList = new ArrayList<>();
+    public static List<Stock> stockListOnRunning = new ArrayList<>();
 
     @Override
     public String getBotUsername() {
@@ -40,18 +42,12 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public void onUpdatesReceived(List<Update> updates) {
         super.onUpdatesReceived(updates);
-
         TelegramUser tempUser = new TelegramUser(updates.get(0).getMessage().getText(), updates.get(0).getMessage().getChatId());
-
         if(!usersList.contains(tempUser)) {
             usersList.add(tempUser);
         }
-
         tempUser.setStepInto(Bot.usersList.get(Bot.usersList.indexOf(tempUser)).getStepInto());
-
         sendMessage(tempUser.getChatId(), ViewMaster.orquestrator(tempUser));
-
-
     }
 
 
@@ -65,4 +61,5 @@ public class Bot extends TelegramLongPollingBot {
             throw new RuntimeException(e);
         }
     }
+
 }

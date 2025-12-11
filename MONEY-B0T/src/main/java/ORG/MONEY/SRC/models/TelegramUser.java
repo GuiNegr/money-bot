@@ -9,10 +9,26 @@ public class TelegramUser {
     private Long chatId;
     private String lastMessage;
     private int stepInto;
+    private boolean isReadyToGo;
+
+    public TelegramUser(String lastMessage, Long chatId,boolean isReadyToGo) {
+        this.lastMessage = lastMessage;
+        this.chatId = chatId;
+        this.isReadyToGo = isReadyToGo;
+    }
 
     public TelegramUser(String lastMessage, Long chatId) {
         this.lastMessage = lastMessage;
         this.chatId = chatId;
+    }
+
+
+    public boolean isReadyToGo() {
+        return isReadyToGo;
+    }
+
+    public void setReadyToGo() {
+        isReadyToGo = !this.isReadyToGo;
     }
 
     public Long getChatId() {
