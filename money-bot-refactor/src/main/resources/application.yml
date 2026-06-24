@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: gui.neg.git.project
+  datasource:
+    url:  "jdbc:postgresql://localhost:5432/money_bot"
+    username: "postgres"
+    password: "senha"
+  flyway:
+    url:  "jdbc:postgresql://localhost:5432/money_bot"
+    user: "postgres"
+    password: "senha"
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  threads:
+    virtual:
+      enabled: true
+  apis:
+    coinmarketcap:
+      url: "https://pro-api.coinmarketcap.com/v3/"
+      token: ${COINMARKETCAP_API_TOKEN:NOT_FOUND}
+    brapiApi:
+      url: "https://brapi.dev/api/"
+      token: ${BRAPI_API_TOKEN:NOT_FOUND}
+    polygonApi:
+      url: "https://api.polygon.io/v3"
+      token: ${POLYGON_API_TOKEN:NOT_FOUND}
